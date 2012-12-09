@@ -4,6 +4,25 @@ describe "User pages" do
 
   subject { page }
 
+  #new (9.23)
+  describe "index" do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: "Bob", email: "bob@example.com")
+      FactoryGirl.create(:user, name: "Ben", email: "ben@example.com")
+      visit users_path
+    end
+
+    it { should have_selector('title', text: 'All users') }
+    it { should have_selector('h1',    text: 'All users') }
+
+    it "should list each user" do
+      User.all.each do |user|
+        page.should have_selector('li', text: user.name)
+      end
+    end
+  end
+  #end (9.23)
   describe "signup page" do
     before { visit signup_path }
 
@@ -54,16 +73,14 @@ end
       end
     end
   end
-  #new - working
 
-#new (describe_edit) - working
+
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     before do
       sign_in user
       visit edit_user_path(user)
     end
-#end new (describe edit) - working
 
     describe "page" do
       it { should have_selector('h1',    text: "Update your profile") }
@@ -76,7 +93,7 @@ end
 
       it { should have_content('error') }
     end
-    #new (block) - working
+  
     describe "with valid information" do
       let(:new_name)  { "New Name" }
       let(:new_email) { "new@example.com" }
@@ -94,8 +111,8 @@ end
       specify { user.reload.name.should  == new_name }
       specify { user.reload.email.should == new_email }
     end
-    #end new (block) - working
+ 
   end
-  #end new - working
+ 
 
 end
