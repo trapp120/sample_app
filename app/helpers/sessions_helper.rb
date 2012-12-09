@@ -15,6 +15,15 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
+#new (def current_user block) - working
+  def current_user
+    @current_user ||= User.find_by_remember_token(cookies[:remember_token])
+  end
+
+  def current_user?(user)
+    user == current_user
+  end
+#end new (def current_user block) - working
 
   def current_user=(user)
     @current_user = user
