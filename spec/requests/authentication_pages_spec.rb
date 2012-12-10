@@ -12,6 +12,18 @@ describe "Authentication" do
 
       describe "in the Users controller" do
 
+        #new (11.28)
+        describe "visiting the following page" do
+          before { visit following_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "visiting the followers page" do
+          before { visit followers_user_path(user) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+        #end (11.28)
+
         #new (10.26)
         describe "in the Microposts controller" do
 
