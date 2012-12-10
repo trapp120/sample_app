@@ -18,7 +18,7 @@ describe "User pages" do
 
     describe "pagination" do
 
-      #new (9.44)
+    
 
   describe "delete links" do
 
@@ -40,7 +40,7 @@ describe "User pages" do
     end
   
 
-  #end (9.44)
+  
 
       before(:all) { 30.times { FactoryGirl.create(:user) } }
       after(:all)  { User.delete_all }
@@ -65,10 +65,21 @@ describe "User pages" do
   describe "profile page" do
   # Code to make a user variable
   let(:user) { FactoryGirl.create(:user) }
+  #new (10.19)
+  let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
+  let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
+  #end (10.19)
   before { visit user_path(user) }
 
   it { should have_selector('h1',    text: user.name) }
   it { should have_selector('title', text: user.name) }
+  #new (10.19_2)
+   describe "microposts" do
+      it { should have_content(m1.content) }
+      it { should have_content(m2.content) }
+      it { should have_content(user.microposts.count) }
+    end
+  #end (10.19_2)
 end
 
   describe "signup" do
