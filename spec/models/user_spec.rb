@@ -29,6 +29,7 @@ describe User do
   #new (9.3.9)
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:microposts) }
 
   it { should be_valid }
   it { should_not be_admin }
