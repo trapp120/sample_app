@@ -33,6 +33,15 @@ module SessionsHelper
     user == current_user
   end
 
+  #new (10.27)
+   def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+  #end (10.27)
+
 
   def current_user=(user)
     @current_user = user
