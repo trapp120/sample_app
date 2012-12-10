@@ -7,6 +7,8 @@ describe "Micropost pages" do
   let(:user) { FactoryGirl.create(:user) }
   before { sign_in user }
 
+
+
   describe "micropost creation" do
     before { visit root_path }
 
@@ -20,8 +22,7 @@ describe "Micropost pages" do
         before { click_button "Post" }
         it { should have_content('error') } 
       end
-    end
-
+end
     describe "with valid information" do
 
       before { fill_in 'micropost_content', with: "Lorem ipsum" }
@@ -30,4 +31,17 @@ describe "Micropost pages" do
       end
     end
   end
+        	                      	#new (10.48)
+  describe "micropost destruction" do
+    before { FactoryGirl.create(:micropost, user: user) }
+
+    describe "as correct user" do
+      before { visit root_path }
+
+      it "should delete a micropost" do
+        expect { click_link "delete" }.to change(Micropost, :count).by(-1)
+      end
+    end
+  end
+  		#end (10.48)
 end
